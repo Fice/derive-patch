@@ -8,9 +8,7 @@ readme = "README.md"
 license-file = "LICENSE.md"
 categories = ["data-structures", "no-std", "rust-patterns"]
 keywords = ["partial", "patch", "derive"]
-documentation = "todo"
 repository = "https://github.com/Fice/derive-patch"
-homepage = ""
 exclude = [
     ".rusty-hooks/*",
     "commitmessage",
