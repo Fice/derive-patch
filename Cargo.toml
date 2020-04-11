@@ -1,0 +1,32 @@
+[package]
+name = "derive-patch"
+version = "0.1.0"
+authors = ["Marcel Lambert <marcel_lambert@ymail.com>"]
+edition = "2018"
+readme = "README.md"
+license-file = "LICENSE.md"
+categories = ["data-structures", "no-std", "rust-patterns"]
+keywords = ["partial", "patch", "derive"]
+documentation = "todo"
+repository = "todo"
+homepage = ""
+exclude = [
+    ".rusty-hooks/*",
+    "commitmessage",
+    "setup-git.sh",
+    ".conform.yaml",
+]
+
+[badges]
+maintenance = { status = "passively-maintained" }
+
+[lib]
+proc-macro = true
+
+[dependencies]
+
+
+[dev-dependencies]
+clippy = "^0"
+clog-cli = "^0.9.3"
+

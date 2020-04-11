@@ -1,0 +1,40 @@
+policies:
+  - type: commit
+    spec:
+      headerLength: 89
+      dco: false
+      gpg: false
+      imperative: true
+      maximumOfOneCommit: true
+      requireCommitBody: false
+      conventional:
+        types:
+          - "build"
+          - "ci"
+          - "docs"
+          - "feat"
+          - "fix"
+          - "perf"
+          - "refactor"
+          - "style"
+          - "test"
+        scopes:
+          - "parser"
+          - "structure"
+          - "backend:cocoa"
+        descriptionLength: 72
+  - type: license
+    spec:
+      skipPaths:
+        - .git/
+        - target/
+      includeSuffixes:
+        - .rs
+      excludeSuffixes:
+        - .exclude-ext-prefix.ext
+      header: |
+        /*
+         * Copyright (2020) by Marcel Lambert
+         * This project is licensed under the MIT Open Source license.
+         * For more information, see the LICENSE file in this repository.
+         */

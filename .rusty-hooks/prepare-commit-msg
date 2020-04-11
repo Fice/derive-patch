@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# Copyright (2020) by Marcel Lambert
+# This project is licensed under the Hippocratic License.
+# See LICENSE.md for more information
+
+set -e
+
+if grep "^[^#;]" $1
+    then 
+        echo "commit message provided, skipping default"      
+    else 
+        printf "$(cat commitmessage)\n$(cat $1)" > $1
+fi
