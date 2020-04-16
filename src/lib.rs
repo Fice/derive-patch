@@ -1,7 +1,7 @@
 /*
- * Copyright (2020) by Marcel Lambert
- * This project is licensed under the MIT Open Source license.
- * For more information, see the LICENSE file in this repository.
+ * Copyright (2020) by Marcel Lambert.
+ * This project's License is the MIT Open Source license.
+ * For more information, see the LICENSE.md file in this repository.
  */
 
 //! This crate contains 2 macros.
