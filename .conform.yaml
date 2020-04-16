@@ -19,9 +19,9 @@ policies:
           - "style"
           - "test"
         scopes:
-          - "parser"
-          - "structure"
-          - "backend:cocoa"
+          - "macro"
+          - "traits"
+          - "core"
         descriptionLength: 72
   - type: license
     spec:
