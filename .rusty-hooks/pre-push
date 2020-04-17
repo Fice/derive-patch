@@ -14,3 +14,5 @@ echo '+cargo clippy --all -- -D warnings'
 cargo clippy --all -- -D warnings
 
 cargo lichking check
+
+cargo audit
