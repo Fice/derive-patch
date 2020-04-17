@@ -8,9 +8,9 @@ readme = "README.md"
 license-file = "LICENSE.md"
 categories = ["data-structures", "no-std", "rust-patterns"]
 keywords = ["partial", "patch", "derive"]
-documentation = "todo"
-repository = "todo"
-homepage = ""
+documentation = "https://docs.rs/derive-patch/0.0.1/derive_patch/"
+repository = "https://github.com/Fice/derive-patch"
+homepage = "https://github.com/Fice/derive-patch/issues"
 exclude = [
     ".rusty-hooks/*",
     "commitmessage",
@@ -21,10 +21,15 @@ exclude = [
 [badges]
 maintenance = { status = "passively-maintained" }
 
-[lib]
-proc-macro = true
+[features]
+default = ["epsilon_compare",]
+
+epsilon_compare = []
 
 [dependencies]
+num = "0.2.1"
+macro_impl = { path = "./macro_impl" }
+serde = { version ="^1.0.106", features = ["derive"], optional = true}
 
 
 [dev-dependencies]

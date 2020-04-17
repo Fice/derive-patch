@@ -7,7 +7,7 @@ FOOTER?
 #Types
 #   build: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
 #   ci: Changes to our CI configuration files and scripts (example scopes: Circle, BrowserStack, SauceLabs)
-#   docs: Documentation only changes
+#   docs: Changes to the Documentation that do not alter functionality or fix a bug.
 #   feat: A new feature
 #   fix: A bug fix
 #   perf: A code change that improves performance

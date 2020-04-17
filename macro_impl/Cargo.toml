@@ -1,0 +1,16 @@
+[package]
+name = "macro_impl"
+description = "The actual macro implementation for `derive-patch`. Do not use directly."
+version = "0.0.1"
+authors = ["Marcel Lambert <marcel_lambert@ymail.com>"]
+edition = "2018"
+categories = ["data-structures", "no-std", "rust-patterns"]
+keywords = ["partial", "patch", "derive"]
+license-file = "../LICENSE.md"
+
+[badges]
+maintenance = { status = "passively-maintained" }
+
+
+[lib]
+proc-macro = true
