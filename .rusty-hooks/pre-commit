@@ -21,3 +21,10 @@ cargo clippy --all -- -D warnings
 cargo lichking check
 
 cargo audit
+
+write-good */*.rs --parse
+write-good README.md --parse
+write-good CONTRIBUTORS.md --parse
+write-good CHANGELOG.md --parse
+write-good *?/*.toml --parse
+write-good ./commitmessage --parse
