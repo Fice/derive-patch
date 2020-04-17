@@ -18,3 +18,4 @@ cargo test --all --all-features --no-fail-fast
 echo '+cargo clippy --all -- -D warnings'
 cargo clippy --all -- -D warnings
 
+cargo lichking check
