@@ -33,6 +33,10 @@ jobs:
       with:
         token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
         file: /tmp/lcov.info
+    - uses: actions/upload-artifact@v1
+      with:
+        name: my-artifact
+        path: /tmp/lcov.info
     - name: rustfmt
       uses: actions-rs/toolchain@v1
       with:
