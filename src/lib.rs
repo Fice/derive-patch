@@ -8,7 +8,7 @@
 //!
 //! One for generating a `partial` Variant of an object. (Inspired by typescript
 //! ```Partial<Object>```)
-//! 
+//!
 //! If you want a peek at what the generated struct should to look like, have a
 //! look at tests/template_partial.rs and tests/template_patch.rs
 

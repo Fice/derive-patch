@@ -15,12 +15,13 @@ use crate::mismatch::MismatchError;
 ///
 /// It also allows us different conflict resolution strategies.
 pub trait Diff
-    where Self: Sized {
+where
+    Self: Sized,
+{
     /// The storage type that holds the diff
     type DiffResult: Clone;
     /// The object type we want to diff.
     type Object;
-
 
     /// Given the old and the new value, creates a diff.
     ///
@@ -29,7 +30,6 @@ pub trait Diff
     /// * `obj` - The object to create the diff against.
     /// * `new` - The new value the created diff represents.
     fn new(old: &Self::Object, new: &Self::Object) -> Self;
-
 
     /// Checks if the given diff would actually change the object.
     ///

@@ -4,7 +4,6 @@
  * For more information, see the LICENSE.md file in this repository.
  */
 
-
 //! This module contains the trait for `Diff` and some generic implementations.
 
 mod copy;

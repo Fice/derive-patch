@@ -10,7 +10,9 @@ use crate::mismatch::MultipleMismatchError;
 
 /// Extension trait that all structs S with `patch!(struct S {})` implement.
 pub trait PatchableExt
-    where Self: Sized {
+where
+    Self: Sized,
+{
     // get_patch(self, rhs: Self) -> ;
     // get_patch_from_partial(self, rhs: Partial)
 }
@@ -44,8 +46,6 @@ pub trait Base<ErrorType> {
     /// Is less or equal to `MAX_FIELDS`
     fn count(&self) -> u32;
 
-
-
     /// applies this patch to the given object.
     ///
     /// # Arguments
@@ -60,7 +60,6 @@ pub trait Base<ErrorType> {
     //
     // does not care about the actual value set
     /* todo: fn same_fields_set(Self) -> bool; */
-
 
     //fn merge_into(&mut self, mergee: Self) -> ErrorType;
 }
@@ -91,7 +90,6 @@ pub trait Patch: Base<Result<(), MultipleMismatchError>> {
     /// todo: move this function and 'is_correct_target' into special IDPatch
     /// trait
     fn is_same_target(&self, other: &Self) -> bool;
-
 
     /// Returns true if this patch would apply without conflicts on the provided
     /// object.

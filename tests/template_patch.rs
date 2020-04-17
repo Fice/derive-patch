@@ -14,7 +14,6 @@ use derive_patch::{
 };
 use template_partial::PartialExample;
 
-
 #[derive(Debug)]
 pub struct Example {
     // #[diff = NumericDistanceDiff]
@@ -40,7 +39,6 @@ impl Example {
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
-
 impl PatchableExt for Example {}
 
 #[derive(PartialEq, Debug, Clone)]
@@ -54,15 +52,18 @@ pub struct ExamplePatch {
 
 impl ExamplePatch {
     pub fn new(id: String) -> ExamplePatch {
-        ExamplePatch { id,
-                       food: None,
-                       bard: None }
+        ExamplePatch {
+            id,
+            food: None,
+            bard: None,
+        }
     }
 
-    pub fn new_with_partial(obj: &Example,
-                            partial: &PartialExample,
-                            id: String /* all patchid attributes */)
-                            -> ExamplePatch {
+    pub fn new_with_partial(
+        obj: &Example,
+        partial: &PartialExample,
+        id: String, /* all patchid attributes */
+    ) -> ExamplePatch {
         let food = match partial.food {
             Some(food) => {
                 let diff = NumericDistanceDiff::new(&obj.food, &food);
@@ -174,7 +175,6 @@ impl Patch for ExamplePatch {
     //todo: keeps all the new values, but sets the old values from the current obj
     //fn rebase(&mut self, obj: &Example) {}
 
-
     fn cleanup(&mut self) -> bool {
         let mut changed = false;
         if let Some(food) = &self.food {
@@ -199,10 +199,12 @@ impl Patch for ExamplePatch {
 
         //check all id types
         if self.id != obj.id {
-            error.add_error(MismatchError::new("id",
-                                               format!("{:?}", obj.id),
-                                               format!("{:?}", self.id),
-                                               MismatchType::ObjectID));
+            error.add_error(MismatchError::new(
+                "id",
+                format!("{:?}", obj.id),
+                format!("{:?}", self.id),
+                MismatchType::ObjectID,
+            ));
         }
 
         if error.is_error_free() {

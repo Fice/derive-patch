@@ -6,20 +6,24 @@
 
 //! Crate dealing will all different kinds of fields that can be `patchable``
 
-
-
 /// todo:
 pub trait PatchableField
-    where Self: Sized {
+where
+    Self: Sized,
+{
     /// todo
     fn compare(&self, rhs: &Self) -> bool
-        where Self: PartialEq {
+    where
+        Self: PartialEq,
+    {
         self == rhs
     }
 
     /// TODO: copy or clone
     fn copy(&self) -> Self
-        where Self: Clone {
+    where
+        Self: Clone,
+    {
         self.clone()
     }
 
@@ -62,8 +66,9 @@ impl PatchableField for String {}
 impl<T> PatchableField for Option<T> where T: PatchableField + Clone {}
 
 impl<O, E> PatchableField for Result<O, E>
-    where O: PatchableField + Clone,
-          E: PatchableField + Clone
+where
+    O: PatchableField + Clone,
+    E: PatchableField + Clone,
 {
 }
 
@@ -78,26 +83,28 @@ impl<T> PatchableField for Vec<T> where T: PatchableField + Clone {}
 //TODO:; array
 
 impl<A, B> PatchableField for (A, B)
-    where A: PatchableField + Clone,
-          B: PatchableField + Clone
+where
+    A: PatchableField + Clone,
+    B: PatchableField + Clone,
 {
 }
 
 impl<A, B, C> PatchableField for (A, B, C)
-    where A: PatchableField + Clone,
-          B: PatchableField + Clone,
-          C: PatchableField + Clone
+where
+    A: PatchableField + Clone,
+    B: PatchableField + Clone,
+    C: PatchableField + Clone,
 {
 }
 
 impl<A, B, C, D> PatchableField for (A, B, C, D)
-    where A: PatchableField + Clone,
-          B: PatchableField + Clone,
-          C: PatchableField + Clone,
-          D: PatchableField + Clone
+where
+    A: PatchableField + Clone,
+    B: PatchableField + Clone,
+    C: PatchableField + Clone,
+    D: PatchableField + Clone,
 {
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -109,8 +116,6 @@ mod tests {
     }
 
     impl PatchableField for PatchableStruct {}
-
-
 
     #[test]
     fn patchable_compare() {

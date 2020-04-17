@@ -17,7 +17,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Eq, PartialEq, Copy, Clone)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct CopyDiff<T>
-    where T: PatchableField {
+where
+    T: PatchableField,
+{
     new_value: T,
     /// The old value.
     ///
@@ -29,15 +31,20 @@ pub struct CopyDiff<T>
 }
 
 impl<T> Diff for CopyDiff<T>
-    where T: Clone + std::cmp::PartialEq + PatchableField + std::fmt::Debug
+where
+    T: Clone + std::cmp::PartialEq + PatchableField + std::fmt::Debug,
 {
     type DiffResult = Self::Object;
     type Object = T;
 
     fn new(old: &T, new: &T) -> Self
-        where T: Clone {
-        CopyDiff { old_value: old.clone(),
-                   new_value: new.clone(), }
+    where
+        T: Clone,
+    {
+        CopyDiff {
+            old_value: old.clone(),
+            new_value: new.clone(),
+        }
     }
 
     /// small helper to actually check if this PatchField changes the obj
@@ -66,14 +73,18 @@ impl<T> Diff for CopyDiff<T>
     }
 
     fn applies_cleanly(&self, obj: &T) -> Result<(), MismatchError>
-        where T: std::fmt::Debug {
+    where
+        T: std::fmt::Debug,
+    {
         if self.old_value.compare(obj) {
             Ok(())
         } else {
-            Err(MismatchError::new("food",
-                                   format!("{:?}", self.old_value),
-                                   format!("{:?}", obj),
-                                   MismatchType::PatchOldValue)) //todo:  better error handlings
+            Err(MismatchError::new(
+                "food",
+                format!("{:?}", self.old_value),
+                format!("{:?}", obj),
+                MismatchType::PatchOldValue,
+            )) //todo:  better error handlings
         }
     }
 
@@ -95,7 +106,6 @@ impl<T> Diff for CopyDiff<T>
         }
     }
 }
-
 
 #[cfg(test)]
 mod tests {

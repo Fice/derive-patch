@@ -46,17 +46,23 @@ impl PartialExample {
     /// Generates a `Partial` by requiring the `forced` values.
     pub fn new(id: u32) -> PartialExample {
         // generated if we have forced values.
-        PartialExample { id,
-                         food: None,
-                         bard: None }
+        PartialExample {
+            id,
+            food: None,
+            bard: None,
+        }
     }
 
     pub fn with_arguments<FOOD, BARD>(id: u32, food: FOOD, bard: BARD) -> PartialExample
-        where FOOD: std::convert::Into<Option<f64>>,
-              BARD: std::convert::Into<Option<Option<String>>> {
-        PartialExample { id,
-                         food: food.into(),
-                         bard: bard.into() }
+    where
+        FOOD: std::convert::Into<Option<f64>>,
+        BARD: std::convert::Into<Option<Option<String>>>,
+    {
+        PartialExample {
+            id,
+            food: food.into(),
+            bard: bard.into(),
+        }
     }
 
     /// add all attributes set here in to the given Partial
@@ -100,10 +106,12 @@ impl PartialExample {
     pub fn build(&self) -> Result<Example, ()> {
         if let Some(food) = &self.food {
             if let Some(bard) = &self.bard {
-                return Ok(Example { food: *food,
-                                    bard: bard.clone(),
-                                    id: self.id,
-                                    something_special: 42, });
+                return Ok(Example {
+                    food: *food,
+                    bard: bard.clone(),
+                    id: self.id,
+                    something_special: 42,
+                });
             }
         }
         Err(())
@@ -153,7 +161,6 @@ impl Base<()> for PartialExample {
     }
 }
 
-
 use derive_patch::{mismatch::IncompleteError, traits::Base};
 
 impl std::convert::TryFrom<PartialExample> for Example {
@@ -162,16 +169,20 @@ impl std::convert::TryFrom<PartialExample> for Example {
     // This function requires all `ignorePartial` values to have a default.
     fn try_from(value: PartialExample) -> Result<Self, Self::Error> {
         if value.is_complete() {
-            Ok(Example { id:   value.id,
-                         bard: value.bard.unwrap(),
-                         food: value.food.unwrap(),
+            Ok(Example {
+                id: value.id,
+                bard: value.bard.unwrap(),
+                food: value.food.unwrap(),
 
-                         something_special: 42, })
+                something_special: 42,
+            })
         } else {
-            Err(Self::Error::new("try_from",
-                                 value.id.to_string(), /* todo: combine
-                                                        * all ids! */
-                                 value))
+            Err(Self::Error::new(
+                "try_from",
+                value.id.to_string(), /* todo: combine
+                                       * all ids! */
+                value,
+            ))
         }
     }
 }

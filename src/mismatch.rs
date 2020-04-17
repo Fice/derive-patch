@@ -7,7 +7,6 @@
 //! Structures for storing and dealing with a missmatch that prevents
 //! a `patch` or `partial` from applying cleanly.
 
-
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 use std::{convert::Into, error::Error, fmt};
@@ -19,29 +18,37 @@ use std::{convert::Into, error::Error, fmt};
 #[derive(Debug, Clone, Hash, Eq, PartialEq)]
 //todo: #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct IncompleteError<Incompletable> {
-    operation:  &'static str,
-    object_id:  String,
+    operation: &'static str,
+    object_id: String,
     incomplete: Incompletable,
 }
 impl<Incompletable> IncompleteError<Incompletable> {
     /// creates a new IncompleteError
-    pub fn new<T>(operation: &'static str,
-                  object_id: T,
-                  incomplete: Incompletable)
-                  -> IncompleteError<Incompletable>
-        where T: std::convert::Into<String> {
-        IncompleteError { operation,
-                          object_id: object_id.into(),
-                          incomplete }
+    pub fn new<T>(
+        operation: &'static str,
+        object_id: T,
+        incomplete: Incompletable,
+    ) -> IncompleteError<Incompletable>
+    where
+        T: std::convert::Into<String>,
+    {
+        IncompleteError {
+            operation,
+            object_id: object_id.into(),
+            incomplete,
+        }
     }
 }
 impl<Incompletable> fmt::Display for IncompleteError<Incompletable>
-    where Incompletable: std::fmt::Debug
+where
+    Incompletable: std::fmt::Debug,
 {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f,
-               "IncompleteError: `{}` failed for {}.\nData:\n{:?}",
-               self.operation, self.object_id, self.incomplete)
+        write!(
+            f,
+            "IncompleteError: `{}` failed for {}.\nData:\n{:?}",
+            self.operation, self.object_id, self.incomplete
+        )
     }
 }
 
@@ -51,7 +58,7 @@ impl<Incompletable> Error for IncompleteError<Incompletable> where Incompletable
 #[derive(Debug, Clone, Hash, Eq, PartialEq)]
 //#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct MismatchError {
-    field_name:   &'static str,
+    field_name: &'static str,
     /// The expected value for the operation to succeed
     pub expected: String,
     /// The actual value during the operation
@@ -63,17 +70,22 @@ pub struct MismatchError {
 }
 impl MismatchError {
     /// creates a new MismatchData
-    pub fn new<E, R>(field_name: &'static str,
-                     expected: E,
-                     received: R,
-                     mismatch_type: MismatchType)
-                     -> MismatchError
-        where E: Into<String>,
-              R: Into<String> {
-        MismatchError { field_name,
-                        expected: expected.into(),
-                        received: received.into(),
-                        mismatch_type }
+    pub fn new<E, R>(
+        field_name: &'static str,
+        expected: E,
+        received: R,
+        mismatch_type: MismatchType,
+    ) -> MismatchError
+    where
+        E: Into<String>,
+        R: Into<String>,
+    {
+        MismatchError {
+            field_name,
+            expected: expected.into(),
+            received: received.into(),
+            mismatch_type,
+        }
     }
 
     /// getter for the field name
@@ -83,9 +95,11 @@ impl MismatchError {
 }
 impl fmt::Display for MismatchError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        writeln!(f,
-                 "{} - field {}: expected {}, got {}",
-                 self.mismatch_type, self.field_name, self.expected, self.received)
+        writeln!(
+            f,
+            "{} - field {}: expected {}, got {}",
+            self.mismatch_type, self.field_name, self.expected, self.received
+        )
     }
 }
 
@@ -162,8 +176,8 @@ impl Error for MultipleMismatchError {}
 impl fmt::Display for MultipleMismatchError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let mismatches = self.mismatches.iter().fold(String::new(), |acc, mismatch| {
-                                                   format!("{}{}\n", acc, mismatch)
-                                               });
+            format!("{}{}\n", acc, mismatch)
+        });
 
         write!(f, "{} mismatches:\n{}", self.mismatches.len(), mismatches)
     }

@@ -18,23 +18,24 @@ pub trait DeserializeOwned {}
 #[cfg(not(feature = "serde"))]
 impl<T> DeserializeOwned for T {}
 
-
 /// todo: make debug optional
 /// todo: make PartialEq and Eq optional
 #[derive(Debug, PartialEq, Copy, Clone)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct NumericDistanceDiff<T>
-    where T: std::ops::Sub<T> + Copy + std::ops::Add<<T as std::ops::Sub>::Output, Output = T>,
-          <T as std::ops::Sub>::Output:
-              num::Zero + Clone + Copy + std::fmt::Debug + PartialEq + Serialize + DeserializeOwned
+where
+    T: std::ops::Sub<T> + Copy + std::ops::Add<<T as std::ops::Sub>::Output, Output = T>,
+    <T as std::ops::Sub>::Output:
+        num::Zero + Clone + Copy + std::fmt::Debug + PartialEq + Serialize + DeserializeOwned,
 {
     difference: <T as std::ops::Sub>::Output,
 }
 //todo: relax on copy requirement?
 impl<T> Diff for NumericDistanceDiff<T>
-    where T: std::ops::Sub<T> + Copy + std::ops::Add<<T as std::ops::Sub>::Output, Output = T>,
-          <T as std::ops::Sub>::Output:
-              num::Zero + Clone + Copy + std::fmt::Debug + PartialEq + Serialize + DeserializeOwned
+where
+    T: std::ops::Sub<T> + Copy + std::ops::Add<<T as std::ops::Sub>::Output, Output = T>,
+    <T as std::ops::Sub>::Output:
+        num::Zero + Clone + Copy + std::fmt::Debug + PartialEq + Serialize + DeserializeOwned,
 {
     type DiffResult = <T as std::ops::Sub>::Output;
     type Object = T;
@@ -51,7 +52,9 @@ impl<T> Diff for NumericDistanceDiff<T>
     }
 
     fn contains_change(&self) -> bool
-        where Self::DiffResult: num::Zero {
+    where
+        Self::DiffResult: num::Zero,
+    {
         !self.difference.is_zero()
     }
 
@@ -60,8 +63,10 @@ impl<T> Diff for NumericDistanceDiff<T>
     }
 
     fn apply_into(&self, obj: &mut T) -> Result<(), MismatchError>
-        where T: std::ops::Add<<T as std::ops::Sub>::Output, Output = T> + Copy,
-              <T as std::ops::Sub>::Output: Copy {
+    where
+        T: std::ops::Add<<T as std::ops::Sub>::Output, Output = T> + Copy,
+        <T as std::ops::Sub>::Output: Copy,
+    {
         *obj = (*obj) + (self.difference);
         Ok(())
     }
